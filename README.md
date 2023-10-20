@@ -1,6 +1,6 @@
 # Portfolio-architecte-sophie-bluel
 
-Code du projet 3 de développeur web
+Code du projet 3 du parcours de développeur web
 
 ## Information pour le lancer le code
 
