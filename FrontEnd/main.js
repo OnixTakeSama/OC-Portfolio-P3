@@ -1,17 +1,14 @@
-const dataWorks = fetch("http://localhost:5678/api/works");
-const dataCategories = fetch("http://localhost:5678/api/categories");
-const gallery = document.querySelector(".gallery");
+import { gallery, loginLink, logoutLink, filters, navLinks } from "./scripts/domLinker.js";
+import { getWorks, getCategories } from "./scripts/api.js";
 
-dataCategories
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    createButton("Tous", 0);
-    data.forEach((category) => {
-      createButton(category.name, category.id);
-    });
-  });
+const init = async () => {
+  const dataCategories = await getCategories();
+  createButton("Tous", 0);
+  dataCategories.forEach(category => createButton(category.name, category.id))
+}
+
+init()
+
 
 // Création de l'élément FIGURE
 function createElement(work) {
@@ -27,30 +24,13 @@ function createElement(work) {
   return figure;
 }
 
-// Suppression de tous les noeuds enfants
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
 // Création du bouton
 function createButton(name, categoryId) {
   // On créer le bouton "TOUS"
   const button = document.createElement("button");
   button.innerText = name;
+  button.setAttribute("class", "btn-filtre");
   button.setAttribute("data-category-id", categoryId);
-
-  // Style du bouton
-  button.style.backgroundColor = "white";
-  button.style.color = "#1D6154";
-  button.style.fontWeight = "600";
-  button.style.fontFamily = "syne";
-  button.style.borderRadius = "20px";
-  button.style.border = "1px solid #1D6154";
-  button.style.padding = "5px 15px";
-  button.style.margin = "5px";
-  button.style.cursor = "pointer";
 
   // Affichage par défaut du bouton "TOUS"
   if (categoryId === 0) {
@@ -79,38 +59,34 @@ function createButton(name, categoryId) {
   });
 
   // On ajoute le bouton au DOM
-  const filters = document.querySelector(".filters");
   filters.appendChild(button);
 }
 
-function displayWorks(categoryId) {
-  fetch("http://localhost:5678/api/works")
-    .then((res) => {
-      return res.json();
-    })
+const displayWorks = categoryId =>
+  getWorks()
     .then((data) => {
-      removeAllChildNodes(gallery);
+      // removeAllChildNodes(gallery);
+      gallery.innerHTML = ''
 
       // Si la catégorie est "Tous" (id = 0) => on affiche tous les travaux
       if (categoryId == 0) {
         data.forEach((work) => {
           console.log(work);
-          element = createElement(work);
+          const element = createElement(work);
           gallery.appendChild(element);
         });
       } else {
         // On filtre les travaux par catégorie
         const filteredWorks = data.filter((work) => work.category.id == categoryId);
         filteredWorks.forEach((work) => {
-          element = createElement(work);
+          const element = createElement(work);
           gallery.appendChild(element);
         });
       }
     });
-}
+
 
 // Event lien nav actifs
-const navLinks = document.querySelectorAll("nav a");
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     navLinks.forEach((link) => {
@@ -122,10 +98,9 @@ navLinks.forEach((link) => {
 
 
 // Vérification du token
-const logoutLink = document.querySelector(".logout");
-const loginLink = document.querySelector(".active");
 
-if (localStorage.getItem("token")){
+
+if (localStorage.getItem("token")) {
   // Si le token est présent, on affiche le lien de déconnexion et on cache le lien de connexion
   logoutLink.classList.remove("hidden");
   loginLink.classList.add("hidden");
