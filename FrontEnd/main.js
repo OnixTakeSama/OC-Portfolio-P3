@@ -108,3 +108,32 @@ function displayWorks(categoryId) {
       }
     });
 }
+
+// Event lien nav actifs
+const navLinks = document.querySelectorAll("nav a");
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+    });
+    link.classList.add("active");
+  });
+});
+
+
+// Vérification du token
+const logoutLink = document.querySelector(".logout");
+const loginLink = document.querySelector(".active");
+
+if (localStorage.getItem("token")){
+  // Si le token est présent, on affiche le lien de déconnexion et on cache le lien de connexion
+  logoutLink.classList.remove("hidden");
+  loginLink.classList.add("hidden");
+}
+
+// Si on clique sur le lien de déconnexion, on supprime le token
+logoutLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+});
