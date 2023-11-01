@@ -221,7 +221,7 @@ nav ul > li > a.active {
 }
 
 .filters {
-	display:flex;
+	display: flex;
 	justify-content: center;
 	margin-bottom: 51px;
 }
@@ -274,12 +274,39 @@ nav ul > li > a.active {
 	text-align: center;
 }
 
-.hidden {
-	display: none;
-}
-
 #error-message {
 	color: red;
 	text-align: center;
 	margin-bottom: 10px;
+}
+
+/* Edition page */
+
+.logged-banner {
+	display: flex;
+	background-color: black;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+}
+
+.logged-banner i{
+	color: white;
+	width: 16px;
+	height: 16px;
+}
+
+.logged-banner p {
+	color: white;
+	font-size: 16px;
+}
+
+.logged-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
 }

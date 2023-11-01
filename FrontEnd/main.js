@@ -1,4 +1,4 @@
-import { gallery, loginLink, logoutLink, filters, navLinks } from "./scripts/domLinker.js";
+import { gallery, loginLink, logoutLink, filters, navLinks, loggedBanner, loggedButton } from "./scripts/domLinker.js";
 import { getWorks, getCategories } from "./scripts/api.js";
 
 const init = async () => {
@@ -104,6 +104,11 @@ if (localStorage.getItem("token")) {
   // Si le token est présent, on affiche le lien de déconnexion et on cache le lien de connexion
   logoutLink.classList.remove("hidden");
   loginLink.classList.add("hidden");
+  //
+  gallery.style.marginTop = "51px";
+  filters.classList.add("hidden");
+  loggedBanner.classList.remove("hidden");
+  loggedButton.classList.remove("hidden");
 }
 
 // Si on clique sur le lien de déconnexion, on supprime le token
