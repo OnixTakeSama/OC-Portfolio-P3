@@ -6,4 +6,5 @@ export const filters = document.querySelector(".filters");
 export const navLinks = document.querySelectorAll("nav a");
 
 /** Page logoin.html **/
-export const loginForm = document.querySelector('#login-form')
+export const loginForm = document.querySelector('#login-form');
+export const errorMessage = document.getElementById('error-message');

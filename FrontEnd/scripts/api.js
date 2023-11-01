@@ -1,3 +1,5 @@
+import { errorMessage } from "./domLinker.js"
+
 const WORKS_URL = "http://localhost:5678/api/works"
 const CATEGORIES_URL = "http://localhost:5678/api/categories"
 const LOGIN_URL = 'http://localhost:5678/api/users/login'
@@ -16,6 +18,7 @@ export const postLogin = data => fetch(LOGIN_URL, {
     if (res.ok) {
         return res.json();
     } else {
+        errorMessage.textContent = 'La combinaison email/mot de passe est incorrecte';
         throw new Error('La combinaison email/mot de passe est incorrecte');
     }
 })
