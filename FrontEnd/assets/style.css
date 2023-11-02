@@ -47,17 +47,23 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+
+main {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
+}
+
+body {
+	margin: auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	background-color: #FFFEF8;
 }
 header {
+	max-width: 1140px;
+	margin: 10px auto;
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
 }
 section {
 	margin: 50px 0
@@ -182,6 +188,7 @@ input[type="submit"]{
 }
 
 footer {
+	margin: auto;
 	background-color: white;
 	height: 60px;
 	width: 100%;
@@ -372,9 +379,13 @@ nav ul > li > a.active {
 	grid-row-gap: 20px;
 }
 
-.modal-gallery img {
+.modal-gallery figure {
 	position: relative;
 	display: flex;
+	width: 100%;
+}
+
+.modal-gallery img {
 	width: 100%;
 }
 
@@ -390,7 +401,8 @@ nav ul > li > a.active {
 	background: black;
 	border-radius: 5px;
 	cursor: pointer;
-	transform: translate(400%, -700%);
+	top: 10px;
+	right: 10px;
 }
 
 .delete-button i {
