@@ -1,11 +1,17 @@
-import { loggedButton, modalContainer, modalGallery, modalTriggers} from "./scripts/domLinker.js";
+import { addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery, modalContentAddWork} from "./scripts/domLinker.js";
 import { getWorks, getCategories } from "./scripts/api.js";
 
 modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
+addWorkButton.addEventListener('click', displayWorkForm);
 
 function toggleModal() {
     modalContainer.classList.toggle('active');
     displayModalWorks();
+}
+
+function displayWorkForm() {
+    modalContentGallery.classList.add('hidden');
+    modalContentAddWork.classList.remove('hidden');
 }
 
 function createElement(modalWork) {

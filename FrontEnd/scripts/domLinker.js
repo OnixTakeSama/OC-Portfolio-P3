@@ -11,6 +11,9 @@ export const loggedButton = document.querySelector(".logged-button");
 export const modalContainer = document.querySelector(".modal-container");
 export const modalTriggers = document.querySelectorAll(".modal-trigger");
 export const modalGallery = document.querySelector(".modal-gallery");
+export const modalContentGallery = document.querySelector(".modal-content-gallery");
+export const modalContentAddWork = document.querySelector(".modal-content-add-work");
+export const addWorkButton = document.querySelector(".add-work-btn");
 
 /** Page logoin.html **/
 export const loginForm = document.querySelector('#login-form');
