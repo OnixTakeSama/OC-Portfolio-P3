@@ -185,19 +185,28 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer {
+	display: flex;
 	margin: auto;
 	background-color: white;
 	height: 60px;
 	width: 100%;
+	justify-content: flex-end;
 }
 
-footer nav ul {
+footer p {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	align-items: center;
+	font-family: 'Work Sans';
+	margin-right: 100px;
+}
+
+footer p:hover {
+	color: #B1663C;
 }
 
 /* Links header */
@@ -260,6 +269,7 @@ nav ul > li > a.active {
 #login label {
 	color: #3D3D3D;
 	margin-bottom: 6px;
+	font-family: 'Syne';
 }
 
 #login input {
@@ -314,10 +324,6 @@ nav ul > li > a.active {
 	cursor: pointer;
 }
 
-.hidden {
-	display: none;
-}
-
 /* Modal style */
 .modal-container {
 	display: none;
@@ -335,7 +341,7 @@ nav ul > li > a.active {
 
 .overlay {
 	position: absolute;
-	width: 100%;
+	width: 125%;
 	height: 100%;
 	background: #333333d3;
 }
@@ -348,35 +354,68 @@ nav ul > li > a.active {
 	background: white;
 	border-radius: 5px;
 	position: absolute;
-	top: 40%;
+	top: 10%;
 	left: 50%;
-	transform: translate(-50%, -50%);
 }
 
-.modal > button {
+.modal-content-gallery {
 	display: flex;
-	justify-content: right;
-	border: none;
-	background: none;
-	cursor: pointer;
+	flex-direction: column;
 }
 
-.modal > button > i {
-	font-size: 25px;
-}
-
-.modal > h3 {
+.modal-content-gallery > h3 {
 	font-size: 26px;
 	margin-bottom: 30px;
 	text-align: center;
 }
 
+.modal-content-add-work {
+	display: flex;
+	flex-direction: column;
+}
+
+.modal-content-add-work > h3 {
+	font-size: 26px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.modal-header {
+	display: flex;
+}
+
+.close-modal {
+	display: flex;
+	border: none;
+	background: none;
+	cursor: pointer;
+	margin-left: 640px;
+}
+
+.close-modal > i {
+	font-size: 25px;
+}
+
+.return-gallery {
+	display: flex;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.return-gallery > i {
+	font-size: 25px;
+}
+
 .modal-gallery {
-	width: 100%;
+	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 5px;
 	grid-row-gap: 20px;
+	position: relative;
+	left: 10%;
+	margin-bottom: 65px;
 }
 
 .modal-gallery figure {
@@ -407,4 +446,32 @@ nav ul > li > a.active {
 
 .delete-button i {
 	font-size: 15px;
+}
+
+
+.modal-separator {
+	width: 420px;
+	margin-bottom: 50px;
+}
+
+.add-work-btn {
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	height: 35px;
+	width: 240px;
+	border: none;
+	border-radius: 50px;
+	margin-bottom: 50px;
+	cursor: pointer;
+	background-color: #1D6154;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	font-family: 'Syne';
+}
+
+.hidden {
+	display: none;
 }
