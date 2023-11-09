@@ -74,6 +74,7 @@
 		<p>Mentions Légales</p>
 	</footer>
 
+	<!-- Modale de suppression de travaux -->
 	<div class="modal-container">
 		<div class="overlay modal-trigger"></div>
 		<div class="modal">
@@ -89,15 +90,31 @@
 				<hr class="modal-separator">
 				<button class="add-work-btn">Ajouter une photo</button>
 			</div>
+
+			<!-- Modale d'ajout de travaux -->
 			<div class="hidden modal-content-add-work">
 				<div class="modal-header">
 					<button class="hidden return-gallery"><i class="fa-solid fa-arrow-left"></i></button>
 					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
 				</div>
 				<h3 class="add-work-title">Ajout photo</h3>
-				<div class="div-form">
-					<!-- Générée dynamiquement -->
-				</div>
+				<form class="add-work-form" method="post" action="#">
+					<div class="add-new-photo">
+						<i class="blank-photo fa-regular fa-image"></i>
+						<img class="hidden preview-photo" src="" alt="">
+						<input type="file" class="add-photo" name="photo-input" accept="image/jpeg, image/png" required>
+						<label class="add-photo-label" for="photo-input">+ Ajouter photo</label>
+						<p class="photo-size">jpg, png : 4mo max</p>
+					</div>
+					<div class="add-work-specs">
+						<label for="title">Titre</label>
+						<input type="text" name="title" class="photo-title" value="" required>
+						<label for="photo-category">Catégorie</label>
+						<select class="photo-category" required>
+							<!-- Générée dynamiquement -->>
+						</select>
+					</div>
+				</form>
 				<hr class="modal-separator">
 				<button class="add-work-btn">Valider</button>
 			</div>
