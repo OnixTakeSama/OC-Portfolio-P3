@@ -98,12 +98,12 @@
 					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
 				</div>
 				<h3 class="add-work-title">Ajout photo</h3>
-				<form class="add-work-form" method="post" action="#">
+				<form class="add-work-form" method="post" action="#" enctype="multipart/form-data">
 					<div class="add-new-photo">
 						<i class="blank-photo fa-regular fa-image"></i>
 						<img class="hidden preview-photo" src="" alt="">
-						<input type="file" class="add-photo" name="photo-input" accept="image/jpeg, image/png" required>
 						<label class="add-photo-label" for="photo-input">+ Ajouter photo</label>
+						<input id="photo-input" type="file" class="add-photo" name="photo-input" accept="image/jpeg, image/png" required>
 						<p class="photo-size">jpg, png : 4mo max</p>
 					</div>
 					<div class="add-work-specs">
@@ -114,9 +114,9 @@
 							<!-- Générée dynamiquement -->>
 						</select>
 					</div>
+					<button type="submit" class="add-work-submit">Valider</button>
 				</form>
 				<hr class="modal-separator">
-				<button class="add-work-btn">Valider</button>
 			</div>
 		</div>
 	</div>

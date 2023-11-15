@@ -1,10 +1,13 @@
-import { addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery, modalContentAddWork, categorySelector, addPhotoFile, previewPhoto, blankPhoto, addPhotoLabel, photoSize, returnButton} from "./scripts/domLinker.js";
-import { getWorks, getCategories } from "./scripts/api.js";
+import { addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery,
+         modalContentAddWork, categorySelector, addPhotoFile, previewPhoto, blankPhoto,
+         addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle} from "./scripts/domLinker.js";
+import { getWorks, getCategories, deleteWork, createWork } from "./scripts/api.js";
 
 modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
 addWorkButton.addEventListener('click', displayAddWorkForm);
 returnButton.addEventListener('click', displayModalGallery);
 
+// On affiche la modale
 function toggleModal() {
     modalContainer.classList.toggle('active');
     modalContentGallery.classList.remove('hidden');
@@ -12,6 +15,7 @@ function toggleModal() {
     displayModalWorks();
 }
 
+// On affiche la mini galerie dans la modale
 function displayModalGallery() {
     modalContentGallery.classList.remove('hidden');
     modalContentAddWork.classList.add('hidden');
@@ -23,9 +27,34 @@ function displayAddWorkForm() {
     modalContentGallery.classList.add('hidden');
     modalContentAddWork.classList.remove('hidden');
     returnButton.classList.remove('hidden');
+    photoTitle.value = "";
+    addPhotoFile.value = "";
+    submitBtn.disabled = true;
+
+    // On reset la preview de l'image
+    previewPhoto.src = "";
+    blankPhoto.classList.remove('hidden');
+    previewPhoto.classList.add('hidden');
+    addPhotoFile.classList.remove('hidden');
+    addPhotoLabel.classList.remove('hidden');
+    photoSize.classList.remove('hidden');
     displayCategories();
 }
 
+// On active le bouton d'envoi du formulaire si les champs sont remplis
+photoTitle.addEventListener("change", () => {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
+        submitBtn.disabled = false;
+    }
+});
+
+categorySelector.addEventListener("change", () => {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
+        submitBtn.disabled = false;
+    }
+});
+
+// Prise en charge de la preview de l'image & activation du bouton d'envoi du formulaire si les champs sont remplis
 addPhotoFile.onchange = evt => {
     const [file] = addPhotoFile.files
     if (file) {
@@ -36,9 +65,20 @@ addPhotoFile.onchange = evt => {
         addPhotoLabel.classList.add('hidden');
         photoSize.classList.add('hidden');
     }
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
+        submitBtn.disabled = false;
+    }
   }
 
+// On affiche les catégories dans le select
 function displayCategories() {
+    categorySelector.innerHTML = "";
+
+    const option = document.createElement("option");
+    option.value = "";
+    option.text = "";
+    categorySelector.appendChild(option);
+
     getCategories()
         .then((data) => {
             data.forEach((category) => {
@@ -50,6 +90,17 @@ function displayCategories() {
         });
 }
 
+submitBtn.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let formData = new FormData();
+    formData.append("title", photoTitle.value);
+    formData.append("image", addPhotoFile.files[0]);
+    formData.append("categoryId", categorySelector.value);
+    createWork(formData);
+});
+
+// On crée un élément figure pour chaque oeuvre
 function createElement(modalWork) {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
@@ -61,13 +112,14 @@ function createElement(modalWork) {
     deleteButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
     deleteButton.classList.add("delete-button");
     figure.appendChild(deleteButton);
-    // deleteButton.addEventListener("click", () => {
-    //     const id = modalWork.id;
-    //     deleteWork(id);
-    // });
+    deleteButton.addEventListener("click", () => {
+        const id = modalWork.id;
+        deleteWork(id);
+    });
     return figure;
 }
 
+// On affiche les oeuvres dans la modale
 const displayModalWorks = () =>
     getWorks()
         .then((data) => {
@@ -78,41 +130,3 @@ const displayModalWorks = () =>
                         modalGallery.appendChild(element);
                 });
             });
-
-function deleteWork(id) {
-    fetch(`http://localhost:5678/api/works/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((response) => response.json())
-        .then(() => {
-            displayModalWorks();
-        });
-}
-
-function addWork() {
-    const imageUrl = document.querySelector("#photo-url").value;
-    const title = document.querySelector("#photo-title").value;
-    const categoryId = document.querySelector("#photo-category").value;
-
-    const work = {
-        imageUrl,
-        title,
-        categoryId
-    };
-
-    fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(work),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            displayModalWorks();
-        });
-}

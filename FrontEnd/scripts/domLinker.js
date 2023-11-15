@@ -23,6 +23,7 @@ export const photoTitle = document.querySelector(".photo-title");
 export const blankPhoto = document.querySelector(".blank-photo");
 export const addPhotoLabel = document.querySelector(".add-photo-label");
 export const photoSize = document.querySelector(".photo-size");
+export const submitBtn = document.querySelector(".add-work-submit");
 
 /** Page logoin.html **/
 export const loginForm = document.querySelector('#login-form');
