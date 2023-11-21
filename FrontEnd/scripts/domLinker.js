@@ -16,6 +16,7 @@ export const modalContentGallery = document.querySelector(".modal-content-galler
 export const modalContentAddWork = document.querySelector(".modal-content-add-work");
 export const returnButton = document.querySelector(".return-gallery");
 export const addWorkButton = document.querySelector(".add-work-btn");
+export const addWorkForm = document.querySelector(".add-work-form");
 export const categorySelector = document.querySelector(".photo-category");
 export const previewPhoto = document.querySelector(".preview-photo");
 export const addPhotoFile = document.querySelector(".add-photo");

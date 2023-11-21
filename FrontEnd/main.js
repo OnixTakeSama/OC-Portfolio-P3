@@ -62,7 +62,7 @@ function createButton(name, categoryId) {
   filters.appendChild(button);
 }
 
-const displayWorks = categoryId =>
+export const displayWorks = categoryId =>
   getWorks()
     .then((data) => {
       // removeAllChildNodes(gallery);

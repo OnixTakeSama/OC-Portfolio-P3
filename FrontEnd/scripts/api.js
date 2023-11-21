@@ -47,7 +47,6 @@ export const createWork = (formData) => {
     fetch(WORKS_URL, {
         method: 'POST',
         headers: {
-            "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
         body: formData

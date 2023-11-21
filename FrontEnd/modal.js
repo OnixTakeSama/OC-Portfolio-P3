@@ -1,6 +1,8 @@
-import { addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery,
-         modalContentAddWork, categorySelector, addPhotoFile, previewPhoto, blankPhoto,
-         addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle} from "./scripts/domLinker.js";
+import {
+    addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery,
+    modalContentAddWork, categorySelector, addPhotoFile, previewPhoto, blankPhoto,
+    addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle, addWorkForm
+} from "./scripts/domLinker.js";
 import { getWorks, getCategories, deleteWork, createWork } from "./scripts/api.js";
 
 modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
@@ -68,7 +70,7 @@ addPhotoFile.onchange = evt => {
     if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
         submitBtn.disabled = false;
     }
-  }
+}
 
 // On affiche les catégories dans le select
 function displayCategories() {
@@ -90,14 +92,14 @@ function displayCategories() {
         });
 }
 
-submitBtn.addEventListener("submit", (event) => {
+addWorkForm.addEventListener("submit", event => {
     event.preventDefault();
 
     let formData = new FormData();
     formData.append("title", photoTitle.value);
     formData.append("image", addPhotoFile.files[0]);
-    formData.append("categoryId", categorySelector.value);
-    createWork(formData);
+    formData.append("category", parseInt(categorySelector.value));
+    createWork(formData)
 });
 
 // On crée un élément figure pour chaque oeuvre
@@ -123,10 +125,10 @@ function createElement(modalWork) {
 const displayModalWorks = () =>
     getWorks()
         .then((data) => {
-                modalGallery.innerHTML = ''
-                data.forEach((work) => {
-                        console.log(work);
-                        const element = createElement(work);
-                        modalGallery.appendChild(element);
-                });
+            modalGallery.innerHTML = ''
+            data.forEach((work) => {
+                console.log(work);
+                const element = createElement(work);
+                modalGallery.appendChild(element);
             });
+        });
