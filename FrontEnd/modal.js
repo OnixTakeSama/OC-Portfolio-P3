@@ -43,18 +43,39 @@ function displayAddWorkForm() {
     displayCategories();
 }
 
-// On active le bouton d'envoi du formulaire si les champs sont remplis
-photoTitle.addEventListener("change", () => {
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
-        submitBtn.disabled = false;
-    }
-});
+// On active le bouton d'envoi du formulaire si les champs sont remplis et que le fichier est correct
 
-categorySelector.addEventListener("change", () => {
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
-        submitBtn.disabled = false;
+function isValidFile(file) {
+    if (file.size < 4000000 && (file.type === "image/jpeg" || file.type === "image/png")) {
+        return true;
+    } else {
+        return false;
     }
-});
+};
+
+photoTitle.onchange = evt => {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+};
+
+categorySelector.onchange = evt => {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+};
+
+addPhotoFile.onchange = evt => {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0]))  {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+};
 
 // Prise en charge de la preview de l'image & activation du bouton d'envoi du formulaire si les champs sont remplis
 addPhotoFile.onchange = evt => {
@@ -66,11 +87,14 @@ addPhotoFile.onchange = evt => {
         addPhotoFile.classList.add('hidden');
         addPhotoLabel.classList.add('hidden');
         photoSize.classList.add('hidden');
-    }
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "") {
-        submitBtn.disabled = false;
+        isValidFile(file);
     }
 }
+
+// Prise en charge du clic sur la photo pour ouvrir le sélecteur de fichier et changer l'image
+previewPhoto.addEventListener('click', () => {
+    addPhotoFile.click();
+});
 
 // On affiche les catégories dans le select
 function displayCategories() {
