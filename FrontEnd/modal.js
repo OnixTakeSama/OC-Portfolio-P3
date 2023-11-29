@@ -1,7 +1,7 @@
 import {
     addWorkButton, modalContainer, modalGallery, modalTriggers, modalContentGallery,
     modalContentAddWork, categorySelector, addPhotoFile, previewPhoto, blankPhoto,
-    addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle, addWorkForm
+    addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle, addWorkForm, errorMsgImg
 } from "./scripts/domLinker.js";
 import { getWorks, getCategories, deleteWork, createWork } from "./scripts/api.js";
 import { displayWorks } from "./main.js";
@@ -44,7 +44,7 @@ function displayAddWorkForm() {
     displayCategories();
 }
 
-// On active le bouton d'envoi du formulaire si les champs sont remplis et que le fichier est correct
+// On vérifie que le fichier est valide
 
 function isValidFile(file) {
     if (file.size < 4000000 && (file.type === "image/jpeg" || file.type === "image/png")) {
@@ -54,41 +54,40 @@ function isValidFile(file) {
     }
 };
 
-photoTitle.onchange = evt => {
+// On vérifie que les champs sont remplis pour activer le bouton d'envoi du formulaire
+function updateSubmitBtn() {
     if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
         submitBtn.disabled = false;
     } else {
         submitBtn.disabled = true;
     }
-};
+}
 
-categorySelector.onchange = evt => {
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
-        submitBtn.disabled = false;
-    } else {
-        submitBtn.disabled = true;
-    }
-};
+photoTitle.onchange = updateSubmitBtn;
+categorySelector.onchange = updateSubmitBtn
+addPhotoFile.onchange = updateSubmitBtn
 
-addPhotoFile.onchange = evt => {
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
-        submitBtn.disabled = false;
-    } else {
-        submitBtn.disabled = true;
-    }
-};
-
-// Prise en charge de la preview de l'image & activation du bouton d'envoi du formulaire si les champs sont remplis
+// Prise en charge de la preview de l'image et de l'affichage des erreurs
 addPhotoFile.onchange = evt => {
     const [file] = addPhotoFile.files
     if (file) {
-        previewPhoto.src = URL.createObjectURL(file)
-        blankPhoto.classList.add('hidden');
-        previewPhoto.classList.remove('hidden');
-        addPhotoFile.classList.add('hidden');
-        addPhotoLabel.classList.add('hidden');
-        photoSize.classList.add('hidden');
-        isValidFile(file);
+        if (isValidFile(file)) {
+            previewPhoto.src = URL.createObjectURL(file)
+            blankPhoto.classList.add('hidden');
+            previewPhoto.classList.remove('hidden');
+            addPhotoFile.classList.add('hidden');
+            addPhotoLabel.classList.add('hidden');
+            photoSize.classList.add('hidden');
+            errorMsgImg.classList.add('hidden');
+        } else {
+            previewPhoto.src = "";
+            blankPhoto.classList.remove('hidden');
+            previewPhoto.classList.add('hidden');
+            addPhotoFile.classList.remove('hidden');
+            addPhotoLabel.classList.remove('hidden');
+            photoSize.classList.remove('hidden');
+            errorMsgImg.classList.remove('hidden');
+        }
     }
 }
 

@@ -587,6 +587,12 @@ input[type="file"] {
 	margin-bottom: 40px;
 }
 
+.error-msg-img {
+	color: red;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
 .hidden {
 	display: none;
 }
