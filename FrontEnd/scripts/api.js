@@ -29,33 +29,25 @@ export const postLogin = data => fetch(LOGIN_URL, {
 export const deleteWork = (id) => fetch(`${WORKS_URL}/${id}`, {
     method: 'DELETE',
     headers: {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
 }).then((res) => {
     if (res.ok) {
-        return res.json();
+        return res;
     } else {
         throw new Error('La suppression a échoué');
     }
-}).then(() => {
-    displayModalWorks();
-});
+})
 
 // Ajout d'une oeuvre
-export const createWork = (formData) => {
-    fetch(WORKS_URL, {
+export const createWork = data => {
+    return fetch(WORKS_URL, {
         method: 'POST',
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: 'Bearer ' + localStorage.token
         },
-        body: formData
-    }).then((res) => {
-        if (res.ok) {
-            console.log("L'oeuvre a bien été ajoutée");
-            return res.json();
-        } else {
-            throw new Error('L\'ajout de l\'oeuvre a échoué');
-        };
-    })
+        body: data
+    }).then(res => res.json())
 }
+
+

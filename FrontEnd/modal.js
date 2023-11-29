@@ -4,6 +4,7 @@ import {
     addPhotoLabel, photoSize, returnButton, submitBtn, photoTitle, addWorkForm
 } from "./scripts/domLinker.js";
 import { getWorks, getCategories, deleteWork, createWork } from "./scripts/api.js";
+import { displayWorks } from "./main.js";
 
 modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
 addWorkButton.addEventListener('click', displayAddWorkForm);
@@ -70,7 +71,7 @@ categorySelector.onchange = evt => {
 };
 
 addPhotoFile.onchange = evt => {
-    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0]))  {
+    if (photoTitle.value !== "" && categorySelector.value !== "" && addPhotoFile.value !== "" && isValidFile(addPhotoFile.files[0])) {
         submitBtn.disabled = false;
     } else {
         submitBtn.disabled = true;
@@ -118,12 +119,16 @@ function displayCategories() {
 
 addWorkForm.addEventListener("submit", event => {
     event.preventDefault();
+    console.log('submit')
 
     let formData = new FormData();
     formData.append("title", photoTitle.value);
     formData.append("image", addPhotoFile.files[0]);
     formData.append("category", parseInt(categorySelector.value));
     createWork(formData)
+        .then(() => displayModalWorks())
+        .then(() => displayWorks(0))
+        .then(() => toggleModal())
 });
 
 // On crée un élément figure pour chaque oeuvre
@@ -140,7 +145,9 @@ function createElement(modalWork) {
     figure.appendChild(deleteButton);
     deleteButton.addEventListener("click", () => {
         const id = modalWork.id;
-        deleteWork(id);
+        deleteWork(id)
+            .then(() => displayModalWorks())
+            .then(() => displayWorks(0))
     });
     return figure;
 }

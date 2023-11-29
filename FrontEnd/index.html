@@ -10,14 +10,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
-	<div class="hidden logged-banner"><p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p></div>
+	<div class="hidden logged-banner">
+		<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 		<nav>
@@ -47,7 +49,8 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets <button class="hidden logged-button modal-trigger"><i class="fa-regular fa-pen-to-square"></i> modifier</button></h2>
+			<h2>Mes Projets <button class="hidden logged-button modal-trigger"><i
+						class="fa-regular fa-pen-to-square"></i> modifier</button></h2>
 			<div class="filters">
 				<!-- Générée dynamiquement -->
 			</div>
@@ -98,12 +101,13 @@
 					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
 				</div>
 				<h3 class="add-work-title">Ajout photo</h3>
-				<form class="add-work-form" method="post" action="#" onsubmit="return false;" enctype="multipart/form-data">
+				<form class="add-work-form" enctype="multipart/form-data">
 					<div class="add-new-photo">
 						<i class="blank-photo fa-regular fa-image"></i>
 						<img class="hidden preview-photo" src="" alt="">
 						<label class="add-photo-label" for="photo-input">+ Ajouter photo</label>
-						<input id="photo-input" type="file" class="add-photo" name="photo-input" accept="image/jpeg, image/png" required>
+						<input id="photo-input" type="file" class="add-photo" name="photo-input"
+							accept="image/jpeg, image/png" required>
 						<p class="photo-size">jpg, png : 4mo max</p>
 					</div>
 					<div class="add-work-specs">
