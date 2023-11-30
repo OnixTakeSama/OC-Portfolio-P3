@@ -41,6 +41,7 @@ function displayAddWorkForm() {
     addPhotoFile.classList.remove('hidden');
     addPhotoLabel.classList.remove('hidden');
     photoSize.classList.remove('hidden');
+    errorMsgImg.classList.add('hidden');
     displayCategories();
 }
 
